@@ -1,0 +1,23 @@
+{
+  "name": "serger/typecaster",
+  "description": "Simple typecasting with no external dependencies",
+  "type": "library",
+  "keywords": ["typecasting", "typecast"],
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Serge Rodovnichenko",
+      "email": "serge@syrnik.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "SergeR\\Typecaster\\": "src"
+    }
+  }
+}
