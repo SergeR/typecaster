@@ -79,8 +79,8 @@ class Typecast
         } elseif (is_string($value)) {
             if (!strlen($value = trim($value))) {
                 if ($nullable) return null;
-                $value = (float)str_replace(',', '.', $value);
             }
+            $value = (float)str_replace(',', '.', $value);
         } elseif (is_numeric($value)) $value = (float)$value;
         else throw new \InvalidArgumentException("string, number or null required");
 
