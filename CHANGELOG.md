@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `phpunit/phpunit` (`^9`) and `vimeo/psalm` (`^5.26`) as dev dependencies.
+- `phpunit/phpunit` (`^9`) and `vimeo/psalm` (`^6.16`) as dev dependencies.
+- Two Psalm configs to check type-checking compatibility against both ends of the
+  supported PHP range: `psalm.xml` (PHP 7.2, the declared minimum) and
+  `psalm-php85.xml` (PHP 8.5), runnable via `composer psalm:php72` /
+  `composer psalm:php85`.
 
 ## [1.0.1] - 2023-04-21
 

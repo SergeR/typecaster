@@ -17,11 +17,15 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9",
-    "vimeo/psalm": "^5.26"
+    "vimeo/psalm": "^6.16"
   },
   "autoload": {
     "psr-4": {
       "SergeR\\Typecaster\\": "src"
     }
+  },
+  "scripts": {
+    "psalm:php72": "psalm --config=psalm.xml",
+    "psalm:php85": "psalm --config=psalm-php85.xml"
   }
 }
