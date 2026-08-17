@@ -29,7 +29,7 @@ class Typecast
             if (!array_key_exists($key, $arr)) continue;
             $value = $arr[$key];
             if (null !== $value && !is_scalar($value)) continue;
-            if (null === $value && $type['null']) continue;
+            if (null === $value && ($type['null'] ?? false)) continue;
             switch ($type['type']) {
                 case 'trim':
                     $arr[$key] = trim((string)$value);
@@ -48,7 +48,7 @@ class Typecast
                 case 'bool':
                 case 'boolean':
                 case 'boolval':
-                    if (is_string($value) && !strlen(trim($value)) && $type['null']) $arr[$key] = null;
+                    if (is_string($value) && !strlen(trim($value)) && ($type['null'] ?? false)) $arr[$key] = null;
                     else $arr[$key] = boolval($value);
                     break;
                 case 'json':

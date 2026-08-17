@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `psalm-php85.xml` (PHP 8.5), runnable via `composer psalm:php72` /
   `composer psalm:php85`.
 
+### Fixed
+
+- `Typecast::scalarArrayValues()` no longer emits an `Undefined array key "null"`
+  warning when a key's spec array omits the `null` option (e.g.
+  `['type' => 'trim']`).
+
 ### Changed
 
 - `Typecast::floatval()` now coerces `bool` to `1.0`/`0.0` instead of throwing
