@@ -128,6 +128,43 @@ class TypecastTest extends TestCase
         $this->assertSame(['name' => 'x'], $result);
     }
 
+    public function testDefaultIsUsedForMissingKey(): void
+    {
+        $result = Typecast::scalarArrayValues(
+            ['name' => 'x'],
+            ['marking' => ['type' => 'string', 'default' => '']]
+        );
+
+        $this->assertSame(['name' => 'x', 'marking' => ''], $result);
+    }
+
+    public function testDefaultIsWrittenAsIsWithoutCoercion(): void
+    {
+        $result = Typecast::scalarArrayValues([], ['qty' => ['type' => 'int', 'default' => '5']]);
+
+        $this->assertSame('5', $result['qty']);
+    }
+
+    public function testDefaultIsIgnoredWhenKeyIsPresent(): void
+    {
+        $result = Typecast::scalarArrayValues(
+            ['marking' => 'abc'],
+            ['marking' => ['type' => 'string', 'default' => 'fallback']]
+        );
+
+        $this->assertSame('abc', $result['marking']);
+    }
+
+    public function testDefaultIsIgnoredWhenKeyIsPresentAsExplicitNull(): void
+    {
+        $result = Typecast::scalarArrayValues(
+            ['marking' => null],
+            ['marking' => ['type' => 'string', 'null' => true, 'default' => 'fallback']]
+        );
+
+        $this->assertNull($result['marking']);
+    }
+
     public function testNonScalarValuesAreLeftUntouched(): void
     {
         $result = Typecast::scalarArrayValues(['tags' => ['a', 'b']], ['tags' => 'trim']);

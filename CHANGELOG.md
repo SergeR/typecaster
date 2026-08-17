@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `default` option in the type spec passed to `Typecast::scalarArrayValues()`: when a key is
+  missing from the input array, its `default` (if set) is written to the result as-is, without
+  type coercion. Keys present in the array (including explicit `null`) are unaffected and keep
+  following the existing `null` option.
 - `phpunit/phpunit` (`^9`) and `vimeo/psalm` (`^6.16`) as dev dependencies.
 - Two Psalm configs to check type-checking compatibility against both ends of the
   supported PHP range: `psalm.xml` (PHP 7.2, the declared minimum) and

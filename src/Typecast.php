@@ -16,7 +16,10 @@ class Typecast
 {
     /**
      * @param array $arr
-     * @param array $keys
+     * @param array $keys map of key => type name, or spec array with `type`, `null`, `default`,
+     *     and type-specific options. If a key is missing from $arr and its spec has a `default`,
+     *     the default is written as-is (not coerced). `default` is ignored for keys present in
+     *     $arr, however that value is null or not — that case is governed by `null` instead.
      * @return array
      */
     public static function scalarArrayValues(array $arr, array $keys): array
@@ -26,7 +29,10 @@ class Typecast
         });
 
         foreach ($keys as $key => $type) {
-            if (!array_key_exists($key, $arr)) continue;
+            if (!array_key_exists($key, $arr)) {
+                if (array_key_exists('default', $type)) $arr[$key] = $type['default'];
+                continue;
+            }
             $value = $arr[$key];
             if (null !== $value && !is_scalar($value)) continue;
             if (null === $value && ($type['null'] ?? false)) continue;

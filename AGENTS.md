@@ -25,10 +25,15 @@ The library centers on `Typecast::scalarArrayValues(array $arr, array $keys): ar
 and returns a copy of `$arr` by coercing selected keys to declared types:
 
 - `$keys` maps array key => either a type name string, or a spec array with keys `type`, `null`,
-  and type-specific options (`precision`, `min`, `max`, `as_array`). Bare strings are normalized to
-  `['type' => $v, 'null' => false]` up front.
+  `default`, and type-specific options (`precision`, `min`, `max`, `as_array`). Bare strings are
+  normalized to `['type' => $v, 'null' => false]` up front.
+- If a key is missing from `$arr` entirely, `default` (when present in the spec) is written as-is,
+  without going through the `switch` — it is not coerced, so the caller is responsible for giving it
+  a value that already matches the declared `type`. No `default` means the key stays absent, as
+  before.
 - For each key present in `$arr`, non-scalar values are skipped, and `null` values are left alone
-  unless the spec allows `null` (in which case they stay `null`).
+  unless the spec allows `null` (in which case they stay `null`). `default` plays no role here —
+  missing-key and explicit-`null` are distinct cases handled independently.
 - Supported `type` values: `trim`, `string`, `float`, `int`/`integer`/`intval`, `bool`/`boolean`/
   `boolval`, `json`. Unknown values from `$arr` are left untouched (the `switch` falls through).
 - `int` coercion is implemented via `floatval()` with `precision = 0`, then cast to `int` — it is not

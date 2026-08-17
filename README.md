@@ -49,16 +49,29 @@ $result = Typecast::scalarArrayValues($data, [
 ### `scalarArrayValues(array $arr, array $keys): array`
 
 Returns a copy of `$arr` with the keys listed in `$keys` coerced to the given
-type. Keys not present in `$arr` are ignored, and non-scalar values are left
-untouched.
+type. Keys not present in `$arr` are left absent unless the spec has a
+`default` (see below), and non-scalar values are left untouched.
 
 Each entry in `$keys` is either:
 
 - a type name string (e.g. `'int'`), or
-- a spec array: `['type' => ..., 'null' => bool, ...type-specific options]`
+- a spec array: `['type' => ..., 'null' => bool, 'default' => ..., ...type-specific options]`
 
 If a value is `null`, it is left as `null` when the spec allows it
 (`'null' => true`); otherwise it is coerced like any other value.
+
+If a key is missing from `$arr` entirely and its spec has a `default`, that
+default is written to the result as-is — it is **not** coerced, so it should
+already match the declared `type`. `default` only applies to missing keys; a
+key present with an explicit `null` value is governed by `'null'` instead,
+not by `default`.
+
+```php
+Typecast::scalarArrayValues($data, [
+    'marking'    => ['type' => 'string', 'default' => ''],
+    'paid_price' => ['type' => 'float', 'default' => 0.0],
+]);
+```
 
 #### Supported types
 
