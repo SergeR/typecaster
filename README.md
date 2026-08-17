@@ -5,6 +5,12 @@ Simple typecasting for PHP arrays, with no external dependencies.
 `Typecaster` coerces scalar values in an array to expected types — handy for
 normalizing request or form data before validation or persistence.
 
+The library works on flat arrays only — it does not recurse into nested
+arrays (see [Usage](#usage) below). This makes it a good fit for casting
+single-row results from a database query, where every column is already a
+scalar; for deeply nested structures you'd call `scalarArrayValues()`
+separately per nested array.
+
 ## Requirements
 
 - PHP >= 7.2
