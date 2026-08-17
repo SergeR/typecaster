@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `psalm-php85.xml` (PHP 8.5), runnable via `composer psalm:php72` /
   `composer psalm:php85`.
 
+### Changed
+
+- Documented that `Typecast::floatval()` accepts `bool` (throwing
+  `InvalidArgumentException` for it, same as before) and added `@throws`, to
+  satisfy Psalm's `ArgumentTypeCoercion` check — no behavior change.
+
 ## [1.0.1] - 2023-04-21
 
 ### Fixed

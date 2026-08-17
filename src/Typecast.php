@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace SergeR\Typecaster;
 
+/**
+ * @api
+ */
 class Typecast
 {
     /**
@@ -64,12 +67,13 @@ class Typecast
     }
 
     /**
-     * @param int|float|string|null $value
+     * @param int|float|string|bool|null $value
      * @param int|null $precision
      * @param float|int|null $min
      * @param float|int|null $max
      * @param bool $nullable
      * @return float|null
+     * @throws \InvalidArgumentException if $value is not a string, number or null (e.g. bool)
      */
     public static function floatval($value, ?int $precision = null, ?float $min = null, ?float $max = null, bool $nullable = false): ?float
     {
