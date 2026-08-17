@@ -24,7 +24,13 @@
       "SergeR\\Typecaster\\": "src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "SergeR\\Typecaster\\Tests\\": "tests"
+    }
+  },
   "scripts": {
+    "test": "phpunit",
     "psalm:php72": "psalm --config=psalm.xml",
     "psalm:php85": "psalm --config=psalm-php85.xml"
   }

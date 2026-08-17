@@ -8,17 +8,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 to expected types (e.g. normalizing request/form data before validation or persistence). The entire
 library is currently a single class: `src/Typecast.php` (namespace `SergeR\Typecaster`).
 
-Requires PHP >=7.2 and `ext-json`. There are no runtime dependencies and no dev tooling configured
-yet (no `scripts` section in `composer.json`, no test suite, no linter/formatter config present in
-the repo). The IDE project settings reference a `tests/` directory for PHPUnit, but that directory
-does not exist yet — if you add tests, that's where they belong, and `require-dev`/PHPUnit will need
-to be added to `composer.json`.
+Requires PHP >=7.2 and `ext-json` at runtime — no runtime dependencies otherwise. Dev tooling
+(PHPUnit 9 for tests, Psalm 6 for static analysis) lives in `require-dev`; tests live in `tests/`
+(PSR-4 `SergeR\Typecaster\Tests\`, mirrored via `autoload-dev`).
 
 ## Commands
 
 - Install dependencies: `composer install`
-- No build, lint, or test commands are currently defined — check `composer.json` before assuming one
-  exists, since this project has no CI/tooling scaffolding yet.
+- Run tests: `composer test` (or `vendor/bin/phpunit`)
+- Static analysis against the declared minimum PHP version (7.2): `composer psalm:php72`
+- Static analysis against the newest supported PHP version (8.5): `composer psalm:php85`
 
 ## Architecture
 
@@ -41,7 +40,8 @@ and returns a copy of `$arr` by coercing selected keys to declared types:
 `Typecast::floatval($value, ?precision, ?min, ?max, bool $nullable): ?float` is the shared numeric
 coercion helper reused by the `float` and `int` cases above:
 
-- Accepts `int|float|string|null`; throws `InvalidArgumentException` for anything else.
+- Accepts `int|float|string|bool|null`; throws `InvalidArgumentException` for anything else. `bool`
+  is coerced via `(float)` (so `true` → `1.0`, `false` → `0.0`).
 - Treats `null` as `0.0` unless `$nullable` is true, in which case it returns `null`.
 - For strings, trims whitespace and replaces `,` with `.` before casting (so `"1,5"` → `1.5`); an
   empty string after trimming returns `null` only if `$nullable`.

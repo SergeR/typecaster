@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   supported PHP range: `psalm.xml` (PHP 7.2, the declared minimum) and
   `psalm-php85.xml` (PHP 8.5), runnable via `composer psalm:php72` /
   `composer psalm:php85`.
+- A PHPUnit test suite under `tests/`, runnable via `composer test`.
+- `.gitattributes` with `export-ignore` rules so dev-only files (`tests/`, `phpunit.xml`,
+  `psalm*.xml`, `.idea`, `.gitignore`, `.gitattributes`, `AGENTS.md`, `CHANGELOG.md`) are excluded
+  from the archive Composer downloads for production installs.
 
 ### Fixed
 
