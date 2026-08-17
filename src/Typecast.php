@@ -73,7 +73,7 @@ class Typecast
      * @param float|int|null $max
      * @param bool $nullable
      * @return float|null
-     * @throws \InvalidArgumentException if $value is not a string, number or null (e.g. bool)
+     * @throws \InvalidArgumentException if $value is not a string, number, bool or null
      */
     public static function floatval($value, ?int $precision = null, ?float $min = null, ?float $max = null, bool $nullable = false): ?float
     {
@@ -85,7 +85,8 @@ class Typecast
                 if ($nullable) return null;
             }
             $value = (float)str_replace(',', '.', $value);
-        } elseif (is_numeric($value)) $value = (float)$value;
+        } elseif (is_bool($value)) $value = (float)$value;
+        elseif (is_int($value) || is_float($value)) $value = (float)$value;
         else throw new \InvalidArgumentException("string, number or null required");
 
         if (null !== $precision) $value = round($value, $precision);

@@ -17,9 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Documented that `Typecast::floatval()` accepts `bool` (throwing
-  `InvalidArgumentException` for it, same as before) and added `@throws`, to
-  satisfy Psalm's `ArgumentTypeCoercion` check — no behavior change.
+- `Typecast::floatval()` now coerces `bool` to `1.0`/`0.0` instead of throwing
+  `InvalidArgumentException`; `@param`/`@throws` docblocks updated to match.
+  This also affects `Typecast::scalarArrayValues()` for `float`/`int` keys
+  fed a boolean value.
 
 ## [1.0.1] - 2023-04-21
 
