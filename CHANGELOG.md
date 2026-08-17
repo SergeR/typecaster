@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `phpunit/phpunit` (`^9`) and `vimeo/psalm` (`^5.26`) as dev dependencies.
+
 ## [1.0.1] - 2023-04-21
 
 ### Fixed
